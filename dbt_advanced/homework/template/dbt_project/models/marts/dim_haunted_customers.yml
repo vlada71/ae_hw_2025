@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: dim_haunted_customers
+    description: >
+      This model contains customer data including customer ID, age, gender, and email.
+      It validates the email addresses by checking if they match the standard email format
+      and if the domain is in the list of valid domains.
+
+    columns:
+      - name: customer_id
+        description: 'Unique identifier for each customer.'
+        tests:
+          - not_null
+          - unique
+
+      - name: age
+        description: 'The age of the customer.'
+
+      - name: gender
+        description: 'Gender of the customer (e.g., male, female, or non-binary).'
+
+      - name: email
+        description: 'Email address of the customer.'
+
+      - name: is_valid_email_address
+        description: 'Indicates if the email address is valid based on format and domain checks.'
+
+unit_tests:
+  - name: test_is_valid_email_address
+    description: 'Check my is_valid_email_address logic captures all known edge cases - emails without ., emails without @, and emails from invalid domains.'
+    model: dim_haunted_customers
+    given:
+      - input: ref('stg_haunted_customers')
+        rows:
+          - {email: cool@example.com}
+          - {email: cool@example.io}
+          - {email: cool@unknown.com}
+          - {email: badgmail.com}
+          - {email: missingdot@gmailcom}
+      - input: ref('valid_domains')
+        rows:
+          - {valid_domain: example.com}
+          - {valid_domain: example.io}
+    expect:
+      rows:
+        - {email: cool@example.com,    is_valid_email_address: true}
+        - {email: cool@example.io,    is_valid_email_address: true}
+        - {email: cool@unknown.com,    is_valid_email_address: false}
+        - {email: badgmail.com,        is_valid_email_address: false}
+        - {email: missingdot@gmailcom, is_valid_email_address: false}

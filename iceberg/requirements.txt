@@ -1,0 +1,5 @@
+pyiceberg
+pyiceberg[s3fs,pyarrow]
+boto3
+python-dotenv
+requests

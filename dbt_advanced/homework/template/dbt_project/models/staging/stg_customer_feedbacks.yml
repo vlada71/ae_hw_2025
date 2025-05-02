@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_customer_feedbacks
+    description: >
+      This staging model processes raw customer feedback data, including the feedback ID, ticket ID,
+      customer rating, and any comments left by the customer regarding their haunted house visit.
+
+    columns:
+      - name: feedback_id
+        description: "Unique identifier for each customer feedback entry."
+        tests:
+          - not_null
+          - unique
+
+      - name: ticket_id
+        description: "Identifier linking the feedback to a specific ticket."
+        tests:
+          - not_null
+
+      - name: rating
+        description: "Customer's rating for the haunted house visit on a scale of 1 to 5."
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+
+      - name: comments
+        description: "Customer's optional comments about their experience."

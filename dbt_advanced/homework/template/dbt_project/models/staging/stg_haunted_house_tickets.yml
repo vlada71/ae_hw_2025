@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: stg_haunted_house_tickets
+    description: >
+      This staging model processes raw haunted house ticket data, including the ticket ID, customer ID,
+      haunted house ID, and details about the ticket purchase and visit.
+
+    columns:
+      - name: ticket_id
+        description: "Unique identifier for each ticket."
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: "Identifier linking the ticket to a specific customer."
+        tests:
+          - not_null
+
+      - name: haunted_house_id
+        description: "Identifier linking the ticket to a specific haunted house."
+        tests:
+          - not_null
+
+      - name: purchase_date
+        description: "Date when the ticket was purchased."
+        tests:
+          - not_null
+
+      - name: visit_date
+        description: "Date when the haunted house visit took place."
+        tests:
+          - not_null
+
+      - name: ticket_type
+        description: "Type of the ticket (e.g., regular, VIP, group)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['General Admission', 'VIP', 'Fast Pass']
+
+      - name: ticket_price
+        description: "Price of the ticket for the haunted house visit."
+        tests:
+          - is_positive

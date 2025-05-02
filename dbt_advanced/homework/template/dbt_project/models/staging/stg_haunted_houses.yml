@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_haunted_houses
+    description: >
+      This staging model processes raw haunted house data, including the haunted house ID, house name,
+      park area, theme, fear level, and house size.
+
+    columns:
+      - name: haunted_house_id
+        description: "Unique identifier for each haunted house."
+        tests:
+          - not_null
+          - unique
+
+      - name: house_name
+        description: "The name of the haunted house."
+        tests:
+          - not_null
+          - unique
+
+      - name: park_area
+        description: "The area of the park where the haunted house is located (e.g., north, south, central)."
+        tests:
+          - not_null
+
+      - name: theme
+        description: "The theme of the haunted house (e.g., vampires, ghosts, zombies)."
+        tests:
+          - not_null
+
+      - name: fear_level
+        description: "The fear level of the haunted house, rated from 1 to 5, with 5 being the scariest."
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+
+      - name: house_size
+        description: "The size of the haunted house in square feet."
+        tests:
+          - is_positive

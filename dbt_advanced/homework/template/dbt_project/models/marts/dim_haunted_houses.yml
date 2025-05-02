@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim_haunted_houses
+    description: >
+      This model contains details about haunted houses, including their name, location, theme,
+      fear level, and size in both square feet and square meters. It transforms the size
+      from square feet to square meters using the `ft2_to_m2` function.
+
+    columns:
+      - name: haunted_house_id
+        description: "Unique identifier for each haunted house."
+        tests:
+          - not_null
+          - unique
+
+      - name: house_name
+        description: "The name of the haunted house."
+
+      - name: park_area
+        description: "The area of the park where the haunted house is located (e.g., north, south, central)."
+
+      - name: theme
+        description: "The theme of the haunted house (e.g., vampires, ghosts, zombies)."
+
+      - name: fear_level
+        description: "The fear level of the haunted house, rated from 1 to 5, with 5 being the scariest."
+
+      - name: house_size_in_ft2
+        description: "The size of the haunted house in square feet."
+
+      - name: house_size_in_m2
+        description: "The size of the haunted house in square meters, calculated from square feet."

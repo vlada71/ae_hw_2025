@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_haunted_customers
+    description: >
+      This staging model processes raw customer data, including the customer ID, age, gender, and email address.
+
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        tests:
+          - not_null
+          - unique
+
+      - name: age
+        description: "The age of the customer."
+        tests:
+          - not_null
+
+      - name: gender
+        description: "Gender of the customer (e.g., male, female, or non-binary)."
+        tests:
+          - not_null
+
+      - name: email
+        description: "Email address of the customer."
+        tests:
+          - not_null

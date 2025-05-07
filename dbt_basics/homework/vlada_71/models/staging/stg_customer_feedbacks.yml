@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_customer_feedbacks
+    description: ""
+    columns:
+      - name: feedback_id
+        data_type: number
+        description: ""
+        tests:
+            - unique
+            - not_null
+
+      - name: ticket_id
+        data_type: number
+        description: ""
+
+      - name: rating
+        data_type: number
+        description: ""
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+
+      - name: comments
+        data_type: varchar
+        description: ""
